@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://dblsx1wpqf533"]
+
+[ext_resource type="Script" path="res://Mob.cs" id="1_v5ud5"]
+[ext_resource type="Texture2D" uid="uid://duhucv1tksj0k" path="res://art/enemyFlyingAlt_1.png" id="2_2704h"]
+[ext_resource type="Texture2D" uid="uid://decq0fbv61yod" path="res://art/enemyFlyingAlt_2.png" id="3_vw2mc"]
+[ext_resource type="Texture2D" uid="uid://d3pd1v8pikej1" path="res://art/enemySwimming_1.png" id="4_wamqy"]
+[ext_resource type="Texture2D" uid="uid://cnvu34jtpahhh" path="res://art/enemySwimming_2.png" id="5_1tksb"]
+[ext_resource type="Texture2D" uid="uid://nuwxst7mdi3y" path="res://art/enemyWalking_2.png" id="6_n2y2a"]
+[ext_resource type="Texture2D" uid="uid://dsukom87wqoaj" path="res://art/enemyWalking_1.png" id="7_iqudy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_csab5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2704h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vw2mc")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wamqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1tksb")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_n2y2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_iqudy")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aosu3"]
+radius = 48.0
+height = 100.0
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_v5ud5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_csab5")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_aosu3")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+enable_node_path = NodePath("../CollisionShape2D")
